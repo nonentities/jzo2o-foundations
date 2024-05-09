@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jzo2o.foundations.mapper.ServeMapper">
+
+
+    <select id="queryServeListByRegionId" resultType="com.jzo2o.foundations.model.dto.response.ServeResDTO"
+            parameterType="java.lang.Long">
+        select
+            serve.id,
+            serve.sale_status,
+            serve.serve_item_id,
+            item.name as serve_item_name,
+            item.serve_type_id,
+            serve.region_id,
+            item.reference_price,
+            serve.price,
+            serve.is_hot,
+            serve.create_time,
+            serve.update_time,
+            type.id serve_type_id,
+            type.name serve_type_name
+            from
+                serve
+                    inner join serve_item as item on serve.serve_item_id=item.id
+                    inner join serve_type as type on item.serve_type_id=type.id
+            where
+            serve.region_id=#{regionId}
+
+    </select>
+</mapper>
